@@ -1,2 +1,4 @@
-^fm_theme\.Rproj$
+^FMtheme\.Rproj$
 ^\.Rproj\.user$
+.Rhistory
+README.Rmd
