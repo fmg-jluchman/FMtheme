@@ -13,7 +13,7 @@ for line, dot, and bar graphs in R using
 [*remotes*](https://CRAN.R-project.org/package=remotes) package and
 `install_gitub` as
 
-    remotes::install_github(fmg-jluchman/FM_theme)
+    remotes::install_github("fmg-jluchman/FMtheme")
 
 # Requests and Updates
 

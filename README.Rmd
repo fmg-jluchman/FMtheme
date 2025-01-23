@@ -13,7 +13,7 @@ The package `FMtheme` is a includes many functions that apply aesthetics for lin
 `FMtheme` is easiest to install using the [*remotes*](https://CRAN.R-project.org/package=remotes) package and `install_gitub` as
 
 ```         
-remotes::install_github(fmg-jluchman/FM_theme)
+remotes::install_github("fmg-jluchman/FMtheme")
 ```
 
 # Requests and Updates
