@@ -22,4 +22,4 @@ Message me, file an [issue](https://github.com/fmg-jluchman/FMtheme/issues), sta
 
 # Note
 
-This package’s icon is the ‘classic’ Fors Marsh (Group) logo used here as a nostalgic throwback that uses a key component of Fors Marsh’s thematic history. It was intentionally enlarged to pixelate it–which is suggestive of its venerablity.
+This package’s icon is the ‘classic’ Fors Marsh (Group) logo used here as a nostalgic throwback that uses a key component of Fors Marsh’s thematic history. It was intentionally enlarged to pixelate it–which is suggestive of its venerability.
