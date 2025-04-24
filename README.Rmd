@@ -10,10 +10,10 @@ The package `FMtheme` is a includes many functions that apply aesthetics for lin
 
 # Installation
 
-`FMtheme` is easiest to install using the [*remotes*](https://CRAN.R-project.org/package=remotes) package and `install_gitub` as
+`FMtheme` is easiest to install using the [*remotes*](https://CRAN.R-project.org/package=remotes) package and `install_github` as
 
 ```         
-remotes::install_github("fmg-jluchman/FMtheme")
+remotes::install_github("fmg-jluchman/FMtheme", build_vignettes = TRUE)
 ```
 
 # Requests and Updates

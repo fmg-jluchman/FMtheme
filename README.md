@@ -11,7 +11,7 @@ for line, dot, and bar graphs in R using
 
 `FMtheme` is easiest to install using the
 [*remotes*](https://CRAN.R-project.org/package=remotes) package and
-`install_gitub` as
+`install_github` as
 
     remotes::install_github("fmg-jluchman/FMtheme", build_vignettes = TRUE)
 
