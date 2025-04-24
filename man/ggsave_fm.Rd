@@ -9,7 +9,8 @@ ggsave_fm(filename, ...)
 \arguments{
 \item{filename}{File name to create on disk.}
 
-\item{...}{Other arguments passed on to \code{ggsave} and the graphics device function, as specified by device.}
+\item{...}{Other arguments passed on to \code{ggsave} and the graphics device
+function, as specified by device.}
 }
 \description{
 Saving method appropriate for Fors Marsh themed graphics.

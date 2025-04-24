@@ -28,4 +28,4 @@ request for support or other update!
 This package’s icon is the ‘classic’ Fors Marsh (Group) logo used here
 as a nostalgic throwback that uses a key component of Fors Marsh’s
 thematic history. It was intentionally enlarged to pixelate it–which is
-suggestive of its venerablity.
+suggestive of its venerability.

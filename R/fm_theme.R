@@ -26,7 +26,7 @@
 #' ## Line Graphs
 #'
 #' Line-based graphics tend to use [`ggplot2::geom_line`] and the functions in
-#' _FMtheme_ are intedned to work with the _linetype_ aesthetic for this geom.
+#' _FMtheme_ are intended to work with the _linetype_ aesthetic for this geom.
 #'
 #' We recommend keeping all lines black in color and using `scale_linetype_fm`
 #' to differentiate different trendlines when used as an aesthetic in the
@@ -104,7 +104,7 @@
 #' ## Don't add more aesthetics
 #'
 #' Do not add colors, symbols, or other aesthetics to the lines, bars, or
-#' dot graps.  This includes labels on data points in the graphic.
+#' dot graphs.  This includes labels on data points in the graphic.
 #' The design of each graph has been customized to be branded, 508 compliant,
 #' easy to read for clients and stakeholders, and easy to use for R users with
 #' _ggplot2_ familiarity.
@@ -189,12 +189,12 @@ theme_fm <-
         legend.spacing = unit(2, "pt"),
         legend.frame = element_rect(fill = "white", color = "white"),
         legend.title = element_text(family = "Berlingske Sans Medium",
-                                   size = 12),
+                                    size = 12),
         legend.byrow = TRUE,
         legend.key.height = unit(2, "pt"),
         legend.key.width = unit(20, "pt"),
         legend.text = element_text(family = "Berlingske Sans Medium",
-                                  size = 12),
+                                   size = 12),
         # panel
         panel.border = element_blank(),
         panel.grid = element_blank(),
@@ -325,4 +325,196 @@ geom_point_fm <-
 ggsave_fm <-
   function(filename, ...) {
     ggsave(filename = filename, width = 5, height = 4, ...)
+  }
+
+#' @title Informal Fors Marsh ggplot2 theme
+#' @name theme_fmlite
+#' @description
+#' A `ggplot` theme that uses an informal Fors Marsh style.
+#'
+#' @param fontpath Path to Berlingske Sans fonts.
+#'
+#' @param ... Passes arguments to other methods.
+#'
+#' @details
+#' Many analysts might be looking for a way to incorporate a Fors Marsh style
+#' for less formal deliverables that do not need to be 508 compliant and need
+#' to be easier to work with in markdown documentation where font sizes and
+#' other graphic elements can vary dynamically.
+#'
+#' The focus of `theme_fmlite` is to provide an easy mechanism for analysts to
+#' apply some of the most important visual elements of the Fors Marsh visual
+#' signature to graphics without many of the constraints imposed by `theme_fm`
+#' and its related scales and geoms.
+#'
+#' `theme_fmlite` is not recommended for formal deliverables but can, and
+#' should, be applied to informal graphics like markdowns that may, or may not,
+#' be submitted to clients as documentation.
+#'
+#' ## Fors Marsh Theme "Lite"
+#'
+#' The "lite" theme focuses on text and incorporates the Berlingske Sans Medium
+#' for all text without restrictions on font size. The plot title for the theme
+#' will use Berlingske Sans Poster.
+#'
+#' Most other aspects of the "lite" theme inherit from [`theme_bw`] save that
+#' the plot grid is removed to make the background very minimal.
+#'
+#' Note that the "lite" theme allows for `strip`s (i.e., graph faceting) and
+#' `title`s.
+#'
+#' ## Fors Marsh Theme Colors and Fills
+#'
+#' The "lite" theme also includes two Fors Marsh color scales:
+#' `scale_color_fmlite` and `scale_fill_fmlite`. In addition, the "lite" theme
+#' includes a lookup function, `color_finder_fmlite` that returns color hex
+#' values given a color name. There are eight total colors and all are names
+#' according to our brand guide. These names include:
+#'
+#' * Fors Marsh Orange
+#' * Pastel Pink
+#' * Aquamarine
+#' * Blue
+#' * Deep Orange
+#' * Tangerine
+#' * Bright Green
+#' * Violet
+#'
+#' Note that `scale_color_fmlite` and `scale_fill_fmlite` assume you want to
+#' use all eight Fors Marsh brand colors, sequentially, from "Fors Marsh Orange"
+#' to "Violet". Only these eight values work and, beyond eight levels for an
+#' aesthetic, th
+#'
+#' As an alternative to `scale_color_fmlite` and `scale_fill_fmlite`,
+#' you can use `scale_color_manual` or `scale_fill_manual` and plug in
+#' different values using `color_finder_fmlite`. For example using
+#' `color_finder_fmlite("Fors Marsh Orange")` returns the hex color value
+#' "#FFA219" corresponding with "Fors Marsh Orange".
+#'
+#' @section Key Considerations:
+#'
+#' There are no specific considerations for the use of `theme_fmlite`. You do
+#' not need to use `ggsave_fm` to save graphs with the "lite" the,e. You can
+#' use `facet_grid` or `facet_wrap` with the "lite" theme. You can also use
+#' as many #' aesthetics as you would like with the "lite" theme. In addition,
+#' you can add titles and captions to the graphics as needed with the "lite"
+#' theme.
+#'
+#' @examples
+#' require(ggplot2)
+#' require(datasets)
+#'
+#' state_data <-
+#'   data.frame(region = state.region, state.x77) |>
+#'   transform(
+#'     Population =
+#'       cut(Population,
+#'         quantile(Population, probs = c(0, .5, 1)), c("Low", "High"),
+#'         include.lowest = TRUE
+#'       ),
+#'     Income =
+#'       cut(Income,
+#'         quantile(Income, probs = c(0, .5, 1)), c("Low", "High"),
+#'         include.lowest = TRUE
+#'       )
+#'   )
+#'
+#' ## Example Bar Chart
+#' state_data |>
+#'   aggregate(Illiteracy ~ region + Population, mean, data = _) |>
+#'   ggplot(aes(region, Illiteracy, fill = Population)) + scale_fill_fmlite() +
+#'   geom_col(position = position_dodge()) + theme_fmlite() +
+#'   ggtitle("Illiteracy in 1977")
+#'
+#' ## Example Line Plot
+#' state_data |>
+#'   ggplot(aes(Illiteracy, HS.Grad, linetype = region, group = region)) +
+#'   scale_linetype_discrete() + theme_fmlite() + scale_linetype_discrete() +
+#'   geom_smooth(method = "lm", se = FALSE,
+#'     color = color_finder_fmlite("Fors Marsh Orange"))
+#'
+#' ## Example Dot Plot
+#' state_data |>
+#'   ggplot(aes(Illiteracy, HS.Grad, color = region)) +
+#'   geom_point() + theme_fmlite() +
+#'   scale_color_fmlite() +
+#'   facet_grid(cols = vars(Population)) +
+#'   ggtitle(caption = "By Population Level")
+#'
+#' @import ggplot2
+#' @export
+theme_fmlite <- function(fontpath = "C:/Windows/Fonts/", ...) {
+    sysfonts::font_add("Berlingske Sans Medium",
+                       paste0(fontpath, "BerlingskeSans-Md.otf"))
+    sysfonts::font_add("Berlingske Sans Poster",
+                       paste0(fontpath, "BerlingskeSans-Pst.otf"))
+    sysfonts::font_add("Berlingske Serif Condensed Medium",
+                       paste0(fontpath, "BerlingskeSerifCn-Md.otf"))
+    showtext::showtext_auto()
+    temp_theme <-
+      theme_bw() +
+      theme(
+        text = element_text(family = "Berlingske Sans Medium"),
+        plot.title = element_text(family = "Berlingske Sans Poster"),
+        panel.grid = element_blank(),
+        strip.background = element_rect(fill = "white"),
+      )
+    temp_theme
+}
+
+#' @rdname theme_fmlite
+#' @export
+scale_fill_fmlite <-
+  function(...) {
+    pal <-
+      function(n) {
+        c(
+          grDevices::rgb(255, 162,  25, 255, maxColorValue = 255),
+          grDevices::rgb(254, 204, 221, 255, maxColorValue = 255),
+          grDevices::rgb(107, 225, 202, 255, maxColorValue = 255),
+          grDevices::rgb(124, 220, 255, 255, maxColorValue = 255),
+          grDevices::rgb(204,  86,  38, 255, maxColorValue = 255),
+          grDevices::rgb(255, 121,  31, 255, maxColorValue = 255),
+          grDevices::rgb(127, 233,  72, 255, maxColorValue = 255),
+          grDevices::rgb(131,  83, 255, 255, maxColorValue = 255)
+          )[seq_len(n)]
+      }
+    discrete_scale(aesthetics = "fill", palette = pal, ...)
+  }
+
+#' @rdname theme_fmlite
+#' @export
+scale_color_fmlite <-
+  function(...) {
+    pal <-
+      function(n) {
+        c(
+          grDevices::rgb(255, 162,  25, 255, maxColorValue = 255),
+          grDevices::rgb(254, 204, 221, 255, maxColorValue = 255),
+          grDevices::rgb(107, 225, 202, 255, maxColorValue = 255),
+          grDevices::rgb(124, 220, 255, 255, maxColorValue = 255),
+          grDevices::rgb(204,  86,  38, 255, maxColorValue = 255),
+          grDevices::rgb(255, 121,  31, 255, maxColorValue = 255),
+          grDevices::rgb(127, 233,  72, 255, maxColorValue = 255),
+          grDevices::rgb(131,  83, 255, 255, maxColorValue = 255)
+        )[seq_len(n)]
+      }
+    discrete_scale(aesthetics = "color", palette = pal, ...)
+  }
+
+#' @rdname theme_fmlite
+#' @export
+color_finder_fmlite <-
+  function(color) {
+    switch(
+      color,
+      "Fors Marsh Orange" = "#FFA219",
+      "Pastel Pink" =       "#FECCDD",
+      "Aquamarine" =        "#68E1CA",
+      "Blue" =              "#7CDCFF",
+      "Deep Orange" =       "#CC5626",
+      "Tangerine" =         "#FF791F",
+      "Bright Green" =      "#7FE948",
+      "Violet" =            "#8353FF"
+    )
   }

@@ -53,7 +53,7 @@ Our recommendations on how to implement each is discussed below.
 \subsection{Line Graphs}{
 
 Line-based graphics tend to use \code{\link[ggplot2:geom_path]{ggplot2::geom_line}} and the functions in
-\emph{FMtheme} are intedned to work with the \emph{linetype} aesthetic for this geom.
+\emph{FMtheme} are intended to work with the \emph{linetype} aesthetic for this geom.
 
 We recommend keeping all lines black in color and using \code{scale_linetype_fm}
 to differentiate different trendlines when used as an aesthetic in the
@@ -135,7 +135,7 @@ comparing them.
 \subsection{Don't add more aesthetics}{
 
 Do not add colors, symbols, or other aesthetics to the lines, bars, or
-dot graps.  This includes labels on data points in the graphic.
+dot graphs.  This includes labels on data points in the graphic.
 The design of each graph has been customized to be branded, 508 compliant,
 easy to read for clients and stakeholders, and easy to use for R users with
 \emph{ggplot2} familiarity.
