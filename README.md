@@ -3,13 +3,16 @@ A Fors Marsh theme
 
 # FMtheme <img src="/man/figures/logo-cube2.png" align="right" height="110"/>
 
-The package `FMtheme` is a includes many functions that apply aesthetics
-for line, dot, and bar graphs in R using
+The package `{FMtheme}` is a includes many functions that apply
+aesthetics for line, dot, and bar graphs in R using
 [*ggplot2*](https://CRAN.R-project.org/package=ggplot2).
+
+In addition, `{FMtheme}` includes an informal, more flexible theme,
+`theme_fmlite` that can accommodate most `{ggplot2}` geoms.
 
 # Installation
 
-`FMtheme` is easiest to install using the
+`{FMtheme}` is easiest to install using the
 [*remotes*](https://CRAN.R-project.org/package=remotes) package and
 `install_github` as
 

@@ -19,6 +19,8 @@ color_finder_fmlite(color)
 \item{fontpath}{Path to Berlingske Sans fonts.}
 
 \item{...}{Passes arguments to other methods.}
+
+\item{color}{Character name of a Fors Marsh brand color.}
 }
 \description{
 A \code{ggplot} theme that uses an informal Fors Marsh style.
@@ -26,22 +28,23 @@ A \code{ggplot} theme that uses an informal Fors Marsh style.
 \details{
 Many analysts might be looking for a way to incorporate a Fors Marsh style
 for less formal deliverables that do not need to be 508 compliant and need
-to be easier to work with in markdown documentation where font sizes and
-other graphic elements can vary dynamically.
+to be easier to work with in markdown documentation where graph sizing
+can vary.
 
 The focus of \code{theme_fmlite} is to provide an easy mechanism for analysts to
-apply some of the most important visual elements of the Fors Marsh visual
+apply some of the most important elements of the Fors Marsh visual
 signature to graphics without many of the constraints imposed by \code{theme_fm}
 and its related scales and geoms.
 
-\code{theme_fmlite} is not recommended for formal deliverables but can, and
-should, be applied to informal graphics like markdowns that may, or may not,
-be submitted to clients as documentation.
+\code{theme_fmlite} is not recommended for formal deliverables without a review
+by the Creative Craft Center but can, and should, be applied to
+informal graphics like markdowns that may, or may not, be submitted
+to clients as documentation.
 \subsection{Fors Marsh Theme "Lite"}{
 
-The "lite" theme focuses on text and incorporates the Berlingske Sans Medium
-for all text without restrictions on font size. The plot title for the theme
-will use Berlingske Sans Poster.
+The "lite" theme focuses on text and incorporates the
+\emph{Berlingske Sans Medium} font for all text without restrictions on font size.
+The plot title for the theme will use \emph{Berlingske Sans Poster}.
 
 Most other aspects of the "lite" theme inherit from \code{\link{theme_bw}} save that
 the plot grid is removed to make the background very minimal.
@@ -55,8 +58,8 @@ Note that the "lite" theme allows for \code{strip}s (i.e., graph faceting) and
 The "lite" theme also includes two Fors Marsh color scales:
 \code{scale_color_fmlite} and \code{scale_fill_fmlite}. In addition, the "lite" theme
 includes a lookup function, \code{color_finder_fmlite} that returns color hex
-values given a color name. There are eight total colors and all are names
-according to our brand guide. These names include:
+values given a color name. There are eight total colors and all are named
+according to the Fors Marsh brand guide. These names include:
 \itemize{
 \item Fors Marsh Orange
 \item Pastel Pink
@@ -71,22 +74,26 @@ according to our brand guide. These names include:
 Note that \code{scale_color_fmlite} and \code{scale_fill_fmlite} assume you want to
 use all eight Fors Marsh brand colors, sequentially, from "Fors Marsh Orange"
 to "Violet". Only these eight values work and, beyond eight levels for an
-aesthetic, th
+aesthetic, these scales will return nothing and suppress the geoms to which
+they are supposed to apply.
 
 As an alternative to \code{scale_color_fmlite} and \code{scale_fill_fmlite},
 you can use \code{scale_color_manual} or \code{scale_fill_manual} and plug in
-different values using \code{color_finder_fmlite}. For example using
-\code{color_finder_fmlite("Fors Marsh Orange")} returns the hex color value
-"#FFA219" corresponding with "Fors Marsh Orange".
+different values using \code{color_finder_fmlite}. For example, a user could
+construct a sequence of values using
+\code{color_finder_fmlite("Fors Marsh Orange")} and
+\code{color_finder_fmlite("Violet")} which return the hex color value
+"#FFA219" corresponding with "Fors Marsh Orange" and "#8353FF" corresponding
+with "Violet" for contrasting colors in the graph.
 }
 }
 \section{Key Considerations}{
 
 
 There are no specific considerations for the use of \code{theme_fmlite}. You do
-not need to use \code{ggsave_fm} to save graphs with the "lite" the,e. You can
+not need to use \code{ggsave_fm} to save graphs with the "lite" theme. You can
 use \code{facet_grid} or \code{facet_wrap} with the "lite" theme. You can also use
-as many #' aesthetics as you would like with the "lite" theme. In addition,
+as many aesthetics as you would like with the "lite" theme. In addition,
 you can add titles and captions to the graphics as needed with the "lite"
 theme.
 }
@@ -130,6 +137,6 @@ state_data |>
   geom_point() + theme_fmlite() +
   scale_color_fmlite() +
   facet_grid(cols = vars(Population)) +
-  ggtitle(caption = "By Population Level")
+  labs(caption = "By Population Level")
 
 }

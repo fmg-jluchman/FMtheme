@@ -334,28 +334,31 @@ ggsave_fm <-
 #'
 #' @param fontpath Path to Berlingske Sans fonts.
 #'
+#' @param color Character name of a Fors Marsh brand color.
+#'
 #' @param ... Passes arguments to other methods.
 #'
 #' @details
 #' Many analysts might be looking for a way to incorporate a Fors Marsh style
 #' for less formal deliverables that do not need to be 508 compliant and need
-#' to be easier to work with in markdown documentation where font sizes and
-#' other graphic elements can vary dynamically.
+#' to be easier to work with in markdown documentation where graph sizing
+#' can vary.
 #'
 #' The focus of `theme_fmlite` is to provide an easy mechanism for analysts to
-#' apply some of the most important visual elements of the Fors Marsh visual
+#' apply some of the most important elements of the Fors Marsh visual
 #' signature to graphics without many of the constraints imposed by `theme_fm`
 #' and its related scales and geoms.
 #'
-#' `theme_fmlite` is not recommended for formal deliverables but can, and
-#' should, be applied to informal graphics like markdowns that may, or may not,
-#' be submitted to clients as documentation.
+#' `theme_fmlite` is not recommended for formal deliverables without a review
+#' by the Creative Craft Center but can, and should, be applied to
+#' informal graphics like markdowns that may, or may not, be submitted
+#' to clients as documentation.
 #'
 #' ## Fors Marsh Theme "Lite"
 #'
-#' The "lite" theme focuses on text and incorporates the Berlingske Sans Medium
-#' for all text without restrictions on font size. The plot title for the theme
-#' will use Berlingske Sans Poster.
+#' The "lite" theme focuses on text and incorporates the
+#' *Berlingske Sans Medium* font for all text without restrictions on font size.
+#' The plot title for the theme will use *Berlingske Sans Poster*.
 #'
 #' Most other aspects of the "lite" theme inherit from [`theme_bw`] save that
 #' the plot grid is removed to make the background very minimal.
@@ -368,8 +371,8 @@ ggsave_fm <-
 #' The "lite" theme also includes two Fors Marsh color scales:
 #' `scale_color_fmlite` and `scale_fill_fmlite`. In addition, the "lite" theme
 #' includes a lookup function, `color_finder_fmlite` that returns color hex
-#' values given a color name. There are eight total colors and all are names
-#' according to our brand guide. These names include:
+#' values given a color name. There are eight total colors and all are named
+#' according to the Fors Marsh brand guide. These names include:
 #'
 #' * Fors Marsh Orange
 #' * Pastel Pink
@@ -383,20 +386,24 @@ ggsave_fm <-
 #' Note that `scale_color_fmlite` and `scale_fill_fmlite` assume you want to
 #' use all eight Fors Marsh brand colors, sequentially, from "Fors Marsh Orange"
 #' to "Violet". Only these eight values work and, beyond eight levels for an
-#' aesthetic, th
+#' aesthetic, these scales will return nothing and suppress the geoms to which
+#' they are supposed to apply.
 #'
 #' As an alternative to `scale_color_fmlite` and `scale_fill_fmlite`,
 #' you can use `scale_color_manual` or `scale_fill_manual` and plug in
-#' different values using `color_finder_fmlite`. For example using
-#' `color_finder_fmlite("Fors Marsh Orange")` returns the hex color value
-#' "#FFA219" corresponding with "Fors Marsh Orange".
+#' different values using `color_finder_fmlite`. For example, a user could
+#' construct a sequence of values using
+#' `color_finder_fmlite("Fors Marsh Orange")` and
+#' `color_finder_fmlite("Violet")` which return the hex color value
+#' "#FFA219" corresponding with "Fors Marsh Orange" and "#8353FF" corresponding
+#' with "Violet" for contrasting colors in the graph.
 #'
 #' @section Key Considerations:
 #'
 #' There are no specific considerations for the use of `theme_fmlite`. You do
-#' not need to use `ggsave_fm` to save graphs with the "lite" the,e. You can
+#' not need to use `ggsave_fm` to save graphs with the "lite" theme. You can
 #' use `facet_grid` or `facet_wrap` with the "lite" theme. You can also use
-#' as many #' aesthetics as you would like with the "lite" theme. In addition,
+#' as many aesthetics as you would like with the "lite" theme. In addition,
 #' you can add titles and captions to the graphics as needed with the "lite"
 #' theme.
 #'
@@ -439,7 +446,7 @@ ggsave_fm <-
 #'   geom_point() + theme_fmlite() +
 #'   scale_color_fmlite() +
 #'   facet_grid(cols = vars(Population)) +
-#'   ggtitle(caption = "By Population Level")
+#'   labs(caption = "By Population Level")
 #'
 #' @import ggplot2
 #' @export

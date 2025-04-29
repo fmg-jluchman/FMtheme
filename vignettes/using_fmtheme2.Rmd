@@ -18,8 +18,9 @@ The `{FMtheme}` package has two major functionalities. First, the `theme_fm`-bas
 This focus of this vignette is to show some of the differences between the `{FMtheme}` functions for formal and informal graphics.
 
 ```{r r-env, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
-#library(FMtheme)
-devtools::load_all(r"(C:\Users\jluchman\OneDrive - Fors Marsh Group\Desktop\Reviews_STAT\FM_template\R\FMtheme)")
+library(ggplot2)
+library(FMtheme)
+#devtools::load_all(r"(C:\Users\jluchman\OneDrive - Fors Marsh Group\Desktop\Reviews_STAT\FM_template\R\FMtheme)")
 knitr::opts_chunk$set(fig.dim = c(5,4))
 ```
 
@@ -29,11 +30,9 @@ knitr::opts_chunk$set(fig.dim = c(5,4))
 
 The `theme_fm` graphics require the use of the `ggsave_fm()` function to automate the sizing of standalone graphics. Generally, we do not recommend the use of `theme_fm` graphics for markdown documents as they are somewhat awkward to include and may render poorly. This is because an important principle of the use of `theme_fm` graphics is that their sizing remains consistent. All graphics produced by `theme_fm` are to be rendered at 5 inches for width and 4 inches for height. When those dimensions are not met, the graphics can defy expectations of the underlying graph implementation, produce patently non-508 compliant graphics, or result in graphics which circumvent Fors Marsh design best practices.
 
-We also recommend that the SVG device is used to render the graphics as it tends to produce the best results for ensuring proportionality and scale of the graphic. The PNG device can be useful as well but can resize aspects of the graphic dynamically in unexpected ways.
-
 ## Informal Graphics
 
-The `theme_fmlite` functions were designed for use in an environment like this one, a markdown document that renders directly to HTML. `theme_fmlite` makes no assumptions about the size of the graphic which makes it far easier to work with in HTML and works about equally well with any device such as the default PNG for most R graphics.
+The `theme_fmlite` functions were designed for use in an environment like this one, a markdown document that renders directly to HTML. `theme_fmlite` makes no assumptions about the size of the graphic which makes it far easier to work with in HTML.
 
 `theme_fmlite` can also be saved and used as standalone graphics in non-HTML documents and using the standard `ggsave` function to do so is perfectly acceptable in such cases.
 
@@ -75,7 +74,7 @@ state_data |>
   geom_point_fm() + scale_shape_fm() + scale_fillshape_fm() + theme_fm()
 ```
 
-Complications arise when it might be valuable to convey more information. For instance, when trying to evaluate Census Divisions in the same graph, the following is produced.
+Complications arise when it might be valuable to convey more information. For instance, when trying to swap Census Regions for Census Divisions, the following is produced.
 
 ```{r fml-dot-div, error=0}
 state_data |>
@@ -83,17 +82,17 @@ state_data |>
   geom_point_fm() + scale_shape_fm() + scale_fillshape_fm() + theme_fm()
 ```
 
-This is because `theme_fm` only allow five levels and there are nine Census Divisions. This is one of the more substantial constraints for `theme_fm` and was imposed to prevent including too much information in a single graph.
+This is because `theme_fm` only allow five levels of an aesthetic and there are nine Census Divisions which would require nine levels. This is one of the more substantial constraints for `theme_fm`. This constraint was imposed to prevent including too much information in a single graph for the sake of readability.
 
-The `theme_fmlite` can accommodate more levels as below.
+When necessary, the `theme_fmlite` can accommodate more levels as below.
 
-```{r infml-dot}
+```{r infml-dot, warning=FALSE}
 state_data |>
   ggplot(aes(Illiteracy, HS.Grad, color = division)) + 
   geom_point() + scale_color_fmlite() + theme_fmlite()
 ```
 
-`theme_fmlite` produces a much simpler but fundamentally similar kind of plot as the formal method. Unfortunately, the ninth Divisision *Pacific,* does not have a Fors Marsh color as there are a total of eight Fors Marsh branded colors. In addition, the trends are hard to discern as there are quite a few colors in the plot
+`theme_fmlite` produces a much simpler but fundamentally similar kind of plot as the formal method. Unfortunately, the ninth Census Division, *Pacific,* does not have a Fors Marsh color as there are a total of eight Fors Marsh branded colors in `scale_color_fmlite`. In addition, this graphic is not ideal as the trends are hard to discern given there are quite a few colors in the plot.
 
 As opposed to using color, one of the most useful extensions that `theme_fmlite` allows is faceting which are disallowed with `theme_fm`. A facet-based solution for this graphic is depicted below.
 
@@ -134,11 +133,11 @@ state_data |>
   scale_color_fmlite() + theme_fmlite() + labs(title = "Trends using GAM")
 ```
 
-Again, these examples illustrate the capabilities of the informal functions. Adding titles, captions, and subtitles could be a useful addition to graphics for informal documentation. Note that the informal functions more easily accommodate the `stat_` functions.
+This example produces a peculiar graph but illustrates the capabilities of the informal functions. Indeed, adding titles, captions, and subtitles could be a useful for informal documentation in markdowns and are feasible to include with `theme_fmlite`'s functions. Note that the `theme_fmlite`'s functions easily accommodate the `stat_`-based geoms.
 
 ## Bar Chart
 
-Bar charts are another common graphic. The below formal graphic counts states in a region by their population.
+Bar charts are another common graphic style. The below formal graphic counts states in a region by their population.
 
 ```{r fml-bar}
 state_data |>
@@ -149,7 +148,7 @@ state_data |>
   scale_fillbar_fm() + scale_linebar_fm() + theme_fm()
 ```
 
-This is a nice looking graphic but does not accommodate the `stat_` geom calls directly. Again, the `theme_fmlite` functions can which is often advantageous for quickly generating graphs like that below.
+This is a nice looking graphic but does not accommodate `stat_` geom calls directly. Again, the `theme_fmlite` functions can work with `stat_` geoms which is often advantageous for quickly generating graphs like the below.
 
 ```{r infml-bar}
 state_data |>
@@ -160,7 +159,7 @@ state_data |>
 
 This is also a good looking graph with many of the same features as the formal version.
 
-As a final example, imagine we wanted to make the graphic slightly more complex by also indicating whether the states were low or high income. To do so, we make the rather obnoxious but discernible differentiation between the bars on outline color using two Fors Marsh brand colors with `color_finder_fmlite`. Note the use of faceting to break the graph into a format that is similar to that of the original "dodged" bar graph.
+As a final example, imagine we wanted to make the graphic above slightly more complex by also indicating whether the states were low or high income. To do so, we make a rather obnoxious choice to differentiate between income levels by line color using `color_finder_fmlite`. Note the use of faceting to break the graph into a format that is similar to that of the original "dodged" bar graph above.
 
 ```{r infml-bar-stack}
 state_data |>
@@ -174,20 +173,26 @@ state_data |>
   )
 ```
 
-This set of results packs a lot of information into the graphic but still generally retains its legibility. Again, the use of heavy outlines with these colors is not the most attractive choice for this graph but illustrates some of the flexibility of the `theme_fmlite` tools.
+This set of results are not incredibly attractive but do pack a lot of information into the graphic and illustrate the flexibility of the `theme_fmlite` tools.
 
 # Other FM Formatting
 
 A final suggestion to get your HTML to render like this one is to use a combination of `{FMtheme}`'s CSS file along with the default theme from `{rmarkdown}`. This can be done using:
 
 ``` yaml
-output:
-  rmarkdown::html_vignette:
-    css:
-      - !expr system.file("rmarkdown/templates/html_vignette/resources/vignette.css", package = "rmarkdown")
-      - !expr system.file("FMtheme/vignettes/fm-theme.css", package = "FMtheme")
+format: 
+  html:
+    css: ["rmarkdown/templates/html_vignette/resources/vignette.css", "FMtheme/vignettes/fm-theme.css"]
 ```
 
 This combination of two CSS files will render your HTML with the same style as seen in this vignette.
 
 Specifically, this CSS file will affect the text and headings for the HTML.
+
+# Rendering to HTML: Fonts
+
+`{FMtheme}` uses the `{showtext}` package to display the *Berlingske Sans* fonts in graphics. This package can have complex interactions with graphics devices and the HTML rendering methodology. In order to be sure that the fonts display appropriately, we recommend you add the following as chunk options to any Markdown or Quarto document that will render as HTML.
+
+```         
+knitr::chunk_options$set(fig.showtext = TRUE, fig.retina = 1)
+```
